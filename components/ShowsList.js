@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import { FlatList, View, StyleSheet, ActivityIndicator } from 'react-native';
 
 import SingleItem from './shared_components/SingleItem';
-import {usingAxios} from '../apis/FetchMovies';
+import {usingAxiosAPI,usingFetchAPI} from '../apis/FetchMovies';
 
 class ShowsList extends Component {
     constructor(){
@@ -13,8 +13,9 @@ class ShowsList extends Component {
             shows: [],
             loading: true
         }
-        // this.usingFetch = this.usingFetch.bind(this);
-        // this.usingAxios = this.usingAxios.bind(this);
+        
+        //this.usingFetch = this.usingFetch.bind(this);
+        //this.usingAxios = this.usingAxios.bind(this);
     }
     FlatListItemSeparator = () => {
         return (
@@ -28,68 +29,16 @@ class ShowsList extends Component {
         );
       }
 
-    // usingFetch() {
-    //     this.setState({
-    //         loading: true
-    //     });
-    //     fetch('https://api.tvmaze.com/shows')
-    //         .then((response) => response.json())
-    //         .then((json) => {
-    //             //console.warn(json);
-    //             this.setState({
-    //                 shows: json,
-    //                 loading: false,
-    //             });
-    //             //console.warn(this.state.shows)
-    //         })
-    //         .catch((error) => {
-    //             console.error(error);
-    //         });
-    // }
-
-    // usingAxios() {
-    //     this.setState({
-    //         loading: true
-    //     });
-    //     axios.get('https://api.tvmaze.com/shows')
-    //         .then(response =>  {
-    //             this.setState({
-    //                 shows: response.data,
-    //                 loading: false,
-    //             });
-    //         })
-    //         .catch((error) => {
-    //             console.error(error);
-    //         });
-    // }
+    
 
     async componentDidMount() {
-          usingAxios().then(data=>{
-            console.log("API Response = ",data);
-          })
 
-         
-         
-        // this.setState({
-        //     shows: data,
-        //     loading: false
-        // });
-        // console.warn(this.state.shows)
-        /*usingAxios().then(data => {
-            console.warn(data)
-            this.setState({
-                shows: data,
-                loading: false
-            });
-        })*/
-        //console.warn(this.state.shows)
-        if(this.props.route.params.method === 'fetch'){
-            //this.usingFetch();
-        }
-        if(this.props.route.params.method === 'axios'){
-            //this.usingAxios();
-        }
+        //const data = await usingFetchAPI();
+        const data = await usingAxiosAPI();
+        
+        this.setState({shows:data,loading:false});
     }
+
     render(){
         return(
             <View style = {styles.container}>

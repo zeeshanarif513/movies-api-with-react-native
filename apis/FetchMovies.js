@@ -1,25 +1,42 @@
 import axios from 'axios';
 
-export function usingFetch() {
-    fetch('https://api.tvmaze.com/shows')
-        .then((response) => response.json())
-        .then((json) => {
-            //console.warn(json);
-            return json;
-        })
-        .catch((error) => {
-            console.error(error);
-        })
+const END_POINT = 'https://api.tvmaze.com/shows';
+
+export async function usingFetchAPI() {
+
+    try {
+        const response = await fetch(END_POINT);
+        const data = await response.json();
+
+        if (data) {
+
+            console.log("API Response using fetch");
+
+            return data;
+        }
+        else {
+            return "No data found"
+        }
+
+    } catch (error) {
+        return error.message;
+    }
 }
 
-export const usingAxios = async () =>  {
-    
-    axios.get('https://api.tvmaze.com/shows')
-        .then(response =>  {
-            console.log("data: ", response.data);
+export async function usingAxiosAPI() {
+
+    try {
+        const response = await axios.get(END_POINT);
+
+        if (response.data) {
+            console.log("API Response using axios");
+
             return response.data;
-        })
-        .catch((error) => {
-            return false;
-        });
+        }
+        else {
+            return "No data found"
+        }
+    } catch (error) {
+        return error.message;
+    }
 }
